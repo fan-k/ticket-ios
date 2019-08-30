@@ -1,0 +1,139 @@
+//
+//  HomeNavigationView.m
+//  FanProduct
+//
+//  Created by 99epay on 2019/6/5.
+//  Copyright © 2019 樊康鹏. All rights reserved.
+//
+
+#import "HomeNavigationView.h"
+
+@interface HomeNavigationView ()
+
+@property (nonatomic ,strong) UIButton *cityButton;
+@property (nonatomic ,strong) UIView *searchBgView;
+@property (nonatomic ,strong) UIImageView *searchImg;
+@property (nonatomic ,strong) UILabel *searchPlaceholder;
+@property (nonatomic ,strong) UIButton *messageImg;
+@property (nonatomic ,strong) UIView *navigationLine;
+@property (nonatomic ,strong) CAGradientLayer * gradient;
+@end
+
+@implementation HomeNavigationView
+
+- (instancetype)initWithFrame:(CGRect)frame{
+    self = [super initWithFrame:frame];
+    if (self) {
+        CAGradientLayer *gradient = [CAGradientLayer layer];
+        gradient.frame = self.bounds;
+        gradient.colors = @[(id)[UIColor clearColor].CGColor,(id)[UIColor clearColor].CGColor];
+        gradient.startPoint = CGPointMake(1, 1);
+        gradient.endPoint = CGPointMake(0, 0);
+        [self.layer addSublayer:gradient];
+        self.gradient = gradient;
+        [self addSubview:self.cityButton];
+        [self addSubview:self.searchBgView];
+        
+        [self addSubview:self.messageImg];
+        [self addSubview:self.navigationLine];
+    }return self;
+}
+
+- (void)setCity:(NSString *)city{
+    _city = [city stringByReplacingOccurrencesOfString:@"市" withString:@""];
+    [self.cityButton setTitle:_city forState:UIControlStateNormal];
+}
+- (void)setAlpha:(CGFloat)alpha{
+    UIColor *startColor =  [UIColor colorWithRed:253/255.0 green:192/255.0 blue:22/255.0 alpha:alpha];
+    UIColor *endColor =  [UIColor colorWithRed:254/255.0 green:231/255.0 blue:15/255.0 alpha:alpha];
+    self.gradient.colors = @[(id)startColor.CGColor,(id)endColor.CGColor];
+    [_navigationLine setBackgroundColor:[UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:alpha]];
+    CGFloat color =  (255 - alpha * 255 ) /255;
+    CGFloat bgcolor =  (255 - alpha * 255 ) /255;
+    if (bgcolor < 0.85) {
+        bgcolor = 0.85;
+    }
+    [_cityButton setTitleColor:[UIColor colorWithRed:color green:color blue:color alpha:1] forState:UIControlStateNormal];
+    if (alpha >= 1) {
+        [_cityButton setImage:IMAGE_WITH_NAME(@"home_xiala_1") forState:UIControlStateNormal];
+        [_messageImg setImage:IMAGE_WITH_NAME(@"xiaoxi") forState:UIControlStateNormal];
+    }else{
+        [_cityButton setImage:IMAGE_WITH_NAME(@"home_xiala_0") forState:UIControlStateNormal];
+        [_messageImg setImage:IMAGE_WITH_NAME(@"xiaoxi") forState:UIControlStateNormal];
+    }
+}
+
+- (void)messageClick{
+    if (self.customActionBlock) {
+        self.customActionBlock(self, cat_message);
+    }
+}
+- (void)cityClick{
+    if (self.customActionBlock) {
+        self.customActionBlock(self, cat_search_city);
+    }
+}
+- (void)searchClick{
+    if (self.customActionBlock) {
+        self.customActionBlock(self, cat_search_ScenicSpot);
+    }
+}
+
+
+-  (UIButton *)cityButton{
+    if (!_cityButton) {
+        _cityButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _cityButton.frame = CGRectMake(15, FanNavSubViewTop(20), 60, 40);
+        [_cityButton setTitle:@"上海" forState:UIControlStateNormal];
+        [_cityButton.titleLabel adjustsFontSizeToFitWidth];
+        [_cityButton setImage:IMAGE_WITH_NAME(@"home_xiala_0") forState:UIControlStateNormal];
+        _cityButton.titleEdgeInsets = UIEdgeInsetsMake(_cityButton.titleEdgeInsets.top, -20, _cityButton.titleEdgeInsets.bottom, 25);
+        _cityButton.imageEdgeInsets = UIEdgeInsetsMake(_cityButton.imageEdgeInsets.top, 35, _cityButton.imageEdgeInsets.bottom, 10);
+        [_cityButton.titleLabel setFont:FanRegularFont(15)];
+        [_cityButton addTarget:self action:@selector(cityClick) forControlEvents:UIControlEventTouchUpInside];
+        [_cityButton setTitleColor:COLOR_PATTERN_STRING(@"_ffffff_color") forState:UIControlStateNormal];
+    }return _cityButton;
+}
+- (UIButton *)messageImg{
+    if (!_messageImg) {
+        _messageImg = [UIButton buttonWithType:UIButtonTypeCustom];
+        _messageImg.frame = CGRectMake(FAN_SCREEN_WIDTH - 50, FanNavSubViewTop(20), 40, 40);
+        [_messageImg setImage:IMAGE_WITH_NAME(@"xiaoxi") forState:UIControlStateNormal];
+        [_messageImg addTarget:self action:@selector(messageClick) forControlEvents:UIControlEventTouchUpInside];
+    }return _messageImg;
+}
+- (UIView *)searchBgView{
+    if (!_searchBgView) {
+        _searchBgView = [[UIView alloc] initWithFrame:CGRectMake(_cityButton.right, FanNavSubViewTop(20) + 5, FAN_SCREEN_WIDTH - _cityButton.right - 50, 30)];
+        _searchBgView.layer.cornerRadius = 15;
+        _searchBgView.backgroundColor = COLOR_PATTERN_STRING(@"_ffffff_color");
+        [_searchBgView addSubview:self.searchImg];
+        [_searchBgView addSubview:self.searchPlaceholder];
+        __weak HomeNavigationView *weakSelf = self;
+        _searchBgView.viewClickBlock = ^(id obj, cat_action_type idx) {
+            [weakSelf searchClick];
+        };
+    }return _searchBgView;
+}
+- (UIImageView *)searchImg{
+    if (!_searchImg) {
+        _searchImg = [[UIImageView alloc] initWithFrame:CGRectMake(15, 7, 16, 16)];
+        _searchImg.image = IMAGE_WITH_NAME(@"sousuo");
+    }return _searchImg;
+}
+- (UILabel *)searchPlaceholder{
+    if (!_searchPlaceholder) {
+        _searchPlaceholder = [[UILabel alloc] initWithFrame:CGRectMake(_searchImg.right + 5, 7, _searchBgView.width - 50, 16)];
+        _searchPlaceholder.text = @"搜索关键字/目的地/名称";
+        _searchPlaceholder.font = FanRegularFont(12);
+        _searchPlaceholder.textColor = COLOR_PATTERN_STRING(@"_9a9a9a_color");
+    }return _searchPlaceholder;
+}
+- (UIView *)navigationLine{
+    if (!_navigationLine) {
+        _navigationLine = [[UIView alloc] initWithFrame:CGRectMake(0, FAN_NAV_HEIGHT - FAN_LINE_HEIGHT, FAN_SCREEN_WIDTH, FAN_LINE_HEIGHT)];
+        [_navigationLine setBackgroundColor:[UIColor colorWithRed:234/255.0 green:234/255.0 blue:234/255.0 alpha:0]];
+    }
+    return _navigationLine;
+}
+@end

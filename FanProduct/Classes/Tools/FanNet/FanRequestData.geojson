@@ -1,0 +1,45 @@
+{
+    "FanUrlPay":{
+        "code":"1",
+        "data":{
+            "orderString":"alipay_sdk=alipay-sdk-java-3.4.49.ALL&app_id=2018120762438835&biz_content=%7B%22body%22%3A%22%E5%85%9C%E7%A4%BC%E8%AE%A2%E5%8D%95-180474678819680256%22%2C%22out_trade_no%22%3A%222019071515483956339196725424%22%2C%22product_code%22%3A%22QUICK_MSECURITY_PAY%22%2C%22subject%22%3A%22%E5%85%9C%E7%A4%BC%E8%AE%A2%E5%8D%95-180474678819680256%22%2C%22total_amount%22%3A%220.03%22%7D&charset=utf-8&format=json&method=alipay.trade.app.pay&notify_url=http%3A%2F%2Fadmin.doooly.com%2Fpayment%2FV2%2Falipay%2Fnotice%2Falipay&sign=MnwCFAVwrY%2BK8DOsB43lCbJk%2FqVT%2BpO0b6jaOXTbPv1Fg6zPWCkAO6RZ7NjdTibvJxQQ%2FJzWX%2FF5IS%2BjeU0I5hvSnnS0VGKkYrDBwLAApX1O6lC7Kwx4EgpqHFiNHLynf2HbNbR5INWPQmK5ez9diOI2PKQTvNG%2F5DWK5BrnoDtJbv0wR4Dwy%2Bl2PY2KndWiCeuu9%2BE4kiE0XSm31NUTDP%2FnM1WRSTTjEccxYWUMBfH%2FWh1ZpjvzwfrBs5owX86q2mkQ1FCV9UHRMrCX3J9qK0KHaDmBdnrzGtS6z9vweqaxU6R1h5nyB4OIPKcwaFYH%2BgBbkUOx2xApmxIGir1elw%3D%3D&sign_type=RSA2&timestamp=2019-07-15+15%3A48%3A53&version=1.0"
+        },
+    },
+    "FanUrlRefundDetail":{
+                        "code":"1",
+                        "data":{
+                            "price":"160.00",
+                            "type":"原路返还",
+                            "number":"23030131313",
+                            "expectTime": "1563354512",
+                            "flow": [
+                                { "title": "提交退款申请", "time": "1563354512", "descript": ""},
+                                { "title": "商家同意退票", "time": "1563354512", "descript": ""},
+                                { "title": "平台审核通过", "time": "1563354512", "descript": "155元的退款申请已提交至微信"},
+                                { "title": "微信受理退款", "time": "1563354512", "descript": "您的退款已被微信受理"},
+                                { "title": "微信入账中", "time": "1563354512", "descript": "微信正将155元入帐至您的支付用户的零钱，预计最晚2019年 05月27日完成入账。"},
+            ],
+        },
+    },
+    "FanUrlOrderRefund":  {
+          "code":  "1",
+          "data":  {
+              "refund":  {
+                  "refundPrice":  "160.00",
+                  "refundType":  [  {  "title":  "账户钱包",  "type":  "wallet"},  {  "title":  "原路返还",  "type":  "original"}],
+                  "refundReason":  [  {  "title":  "出现时间有变",  "type":  "0"},  {  "title":  "商家无法提供服务",  "type":  "1"},  {  "title":  "买错了/不想买",  "type":  "2"},  {  "title":  "信息填写错误",  "type":  "3"},  {  "title":  "其他",  "type":  "4"}],
+            },
+              "order":  {
+                  "number":  "0",
+                  "title":  "上海星空错觉艺术馆全天情侣票",   "picture":  "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562664908439&di=2b89d5a9799de8e50b966204dab31b3c&imgtype=0&src=http%3A%2F%2Fpic.lvmama.com%2Fuploads%2Fpc%2Fplace2%2F2018-03-08%2F14384efd-1427-43c1-90a6-0e23ec9c58a4.jpg",
+                  "count":  "1",
+                  "totalprice":  "160.00",
+                  "unitprice":  "160.00",
+                  "status":  "0",
+                  "playtime":  "1563245564",
+                  "paytime":  "1563245564",
+                  "endTime":  "1563245564",
+            }
+        }
+    },
+}
